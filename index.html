@@ -3,12 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-
-<!-- Title و Meta فقط برای گوگل -->
-<title>استعلام تایید تحصیلی | استعلام کد صحت تایید تحصیلی | سامانه سجاد</title>
-<meta name="description" content="استعلام تایید تحصیلی، استعلام کد صحت تایید تحصیلی، تایید تحصیلی، استعلام تحصیل، کد تایید تحصیلی، استعلام کد تحصیلی سامانه سجاد، صحت کد از سامانه سجاد، تایید تحصیلی با کد صحت">
-<meta name="keywords" content="استعلام تایید تحصیلی, استعلام کد صحت تایید تحصیلی, تایید تحصیلی, تحصیلی استعلام, استعلام تحصیل, کد تایید تحصیلی, استعلام کد تحصیلی سامانه سجاد, استعلام کد صحت تایید تحصیلی, استعلام کد صحت تایید تحصیلی سجاد, سامانه سجاد استعلام صحت, صحت کد از سامانه سجاد, تایید تحصیلی با کد صحت">
-
+<title>سامانه تأیید تحصیلی</title>
 <style>
   :root{
     --brand-1:#0072bc;
@@ -177,16 +172,15 @@
 </div>
 
 <script>
-// همان اسکریپت قبلی بدون تغییر
 (function(){
   const VALID_CODE = '83610572'; 
   const sampleData = {
-    name: "پویا هاشمی اصل",
-    nationalId: "۰۰۸۳۴۸۷۲۵۵",
+    name: "عبد القادر گرامی",
+    nationalId: "۳۸۱۰۱۸۳۴۱۵",
     degree: "کارشناسی پیوسته",
     major: "مدیریت بازرگانی",
-    units: "۱۳۱ واحد درسی تخصصی و عمومی",
-    gradDate: "۱۳۹۹/۰۷/۲۱",
+    units: "۱۴۱ واحد درسی تخصصی و عمومی",
+    gradDate: "1403/10/21",
     university: "دانشگاه آزاد اسلامی واحد تهران مرکزی"
   };
 
@@ -209,4 +203,79 @@
   }
 
   function populate(data){
-    document.getElementById('name
+    document.getElementById('name').innerText = data.name;
+    document.getElementById('nationalId').innerText = data.nationalId;
+    document.getElementById('degree').innerText = data.degree;
+    document.getElementById('major').innerText = data.major;
+    document.getElementById('units').innerText = data.units;
+    document.getElementById('gradDate').innerText = data.gradDate;
+    document.getElementById('university').innerText = data.university;
+  }
+
+  function checkCode(){
+    clearError();
+    const code = String(codeInput.value || '').trim();
+
+    if(!code){
+      showError('لطفاً کد صحت را وارد کنید.');
+      codeInput.focus();
+      return;
+    }
+
+    if(!/^\d{8}$/.test(code)){
+      showError('فرمت کد صحیح نیست. کد باید ۸ رقم باشد.');
+      codeInput.focus();
+      return;
+    }
+
+    if(code === VALID_CODE){
+      populate(sampleData);
+      resultCard.style.display = 'block';
+      clearError();
+    } else {
+      showError('کد صحت نامعتبر است یا اطلاعاتی برای این کد ثبت نشده است.');
+    }
+  }
+
+  checkBtn.addEventListener('click', checkCode);
+  resetBtn.addEventListener('click', function(){
+    codeInput.value = '';
+    clearError();
+    resultCard.style.display = 'none';
+    codeInput.focus();
+  });
+
+  codeInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){
+      checkCode();
+    }
+  });
+
+  copyBtn.addEventListener('click', function(){
+    const txt = [
+      'نام و نام خانوادگی: ' + document.getElementById('name').innerText,
+      'کد ملی: ' + document.getElementById('nationalId').innerText,
+      'مقطع تحصیلی: ' + document.getElementById('degree').innerText,
+      'رشته تحصیلی: ' + document.getElementById('major').innerText,
+      'تعداد واحدها: ' + document.getElementById('units').innerText,
+      'تاریخ فارغ‌التحصیلی: ' + document.getElementById('gradDate').innerText,
+      'دانشگاه: ' + document.getElementById('university').innerText
+    ].join('\n');
+
+    navigator.clipboard.writeText(txt).then(function(){
+      alert('نتیجه کپی شد.');
+    }, function(){
+      alert('کپی ناموفق بود. لطفاً دستی کپی کنید.');
+    });
+  });
+
+  printBtn.addEventListener('click', function(){
+    window.print();
+  });
+
+  codeInput.focus();
+})();
+</script>
+
+</body>
+</html>
