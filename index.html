@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<!-- Title و Meta جدید -->
+<!-- Title و Meta فقط برای گوگل -->
 <title>استعلام تایید تحصیلی | استعلام کد صحت تایید تحصیلی | سامانه سجاد</title>
 <meta name="description" content="استعلام تایید تحصیلی، استعلام کد صحت تایید تحصیلی، تایید تحصیلی، استعلام تحصیل، کد تایید تحصیلی، استعلام کد تحصیلی سامانه سجاد، صحت کد از سامانه سجاد، تایید تحصیلی با کد صحت">
 <meta name="keywords" content="استعلام تایید تحصیلی, استعلام کد صحت تایید تحصیلی, تایید تحصیلی, تحصیلی استعلام, استعلام تحصیل, کد تایید تحصیلی, استعلام کد تحصیلی سامانه سجاد, استعلام کد صحت تایید تحصیلی, استعلام کد صحت تایید تحصیلی سجاد, سامانه سجاد استعلام صحت, صحت کد از سامانه سجاد, تایید تحصیلی با کد صحت">
@@ -118,17 +118,6 @@
 
 <header>سامانه رسمی تأیید تحصیلی - سازمان امور دانشجویان</header>
 
-<!-- بخش جدید محتوا برای SEO -->
-<main>
-  <h1>استعلام تایید تحصیلی با کد صحت سامانه سجاد</h1>
-
-  <h2>استعلام کد صحت تایید تحصیلی</h2>
-  <h2>تایید تحصیلی و استعلام تحصیل</h2>
-  <h2>کد تایید تحصیلی و سامانه سجاد</h2>
-
-  <p>برای <strong>استعلام تایید تحصیلی</strong> و <strong>استعلام کد صحت تایید تحصیلی</strong> می‌توانید از سامانه سجاد استفاده کنید. این سامانه امکان <strong>تایید تحصیلی</strong>، <strong>استعلام تحصیل</strong> و دریافت <strong>کد تایید تحصیلی</strong> را به شما می‌دهد. برای <strong>استعلام کد تحصیلی سامانه سجاد</strong> کافیست کد صحت تحصیلی خود را وارد کنید تا <strong>صحت کد از سامانه سجاد</strong> تایید شود. با این روش، <strong>تایید تحصیلی با کد صحت</strong> به راحتی انجام می‌شود.</p>
-</main>
-
 <div class="wrapper" role="main" aria-labelledby="title">
   <div id="title" style="display:none">سامانه رسمی تأیید تحصیلی</div>
 
@@ -220,79 +209,4 @@
   }
 
   function populate(data){
-    document.getElementById('name').innerText = data.name;
-    document.getElementById('nationalId').innerText = data.nationalId;
-    document.getElementById('degree').innerText = data.degree;
-    document.getElementById('major').innerText = data.major;
-    document.getElementById('units').innerText = data.units;
-    document.getElementById('gradDate').innerText = data.gradDate;
-    document.getElementById('university').innerText = data.university;
-  }
-
-  function checkCode(){
-    clearError();
-    const code = String(codeInput.value || '').trim();
-
-    if(!code){
-      showError('لطفاً کد صحت را وارد کنید.');
-      codeInput.focus();
-      return;
-    }
-
-    if(!/^\d{8}$/.test(code)){
-      showError('فرمت کد صحیح نیست. کد باید ۸ رقم باشد.');
-      codeInput.focus();
-      return;
-    }
-
-    if(code === VALID_CODE){
-      populate(sampleData);
-      resultCard.style.display = 'block';
-      clearError();
-    } else {
-      showError('کد صحت نامعتبر است یا اطلاعاتی برای این کد ثبت نشده است.');
-    }
-  }
-
-  checkBtn.addEventListener('click', checkCode);
-  resetBtn.addEventListener('click', function(){
-    codeInput.value = '';
-    clearError();
-    resultCard.style.display = 'none';
-    codeInput.focus();
-  });
-
-  codeInput.addEventListener('keydown', function(e){
-    if(e.key === 'Enter'){
-      checkCode();
-    }
-  });
-
-  copyBtn.addEventListener('click', function(){
-    const txt = [
-      'نام و نام خانوادگی: ' + document.getElementById('name').innerText,
-      'کد ملی: ' + document.getElementById('nationalId').innerText,
-      'مقطع تحصیلی: ' + document.getElementById('degree').innerText,
-      'رشته تحصیلی: ' + document.getElementById('major').innerText,
-      'تعداد واحدها: ' + document.getElementById('units').innerText,
-      'تاریخ فارغ‌التحصیلی: ' + document.getElementById('gradDate').innerText,
-      'دانشگاه: ' + document.getElementById('university').innerText
-    ].join('\n');
-
-    navigator.clipboard.writeText(txt).then(function(){
-      alert('نتیجه کپی شد.');
-    }, function(){
-      alert('کپی ناموفق بود. لطفاً دستی کپی کنید.');
-    });
-  });
-
-  printBtn.addEventListener('click', function(){
-    window.print();
-  });
-
-  codeInput.focus();
-})();
-</script>
-
-</body>
-</html>
+    document.getElementById('name
