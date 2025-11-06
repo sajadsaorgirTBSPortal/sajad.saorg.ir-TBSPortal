@@ -188,15 +188,26 @@
 
 <script>
 (function(){
-  const VALID_CODE = '82610572';
-  const sampleData = {
-    name: "موسی‌افشین",
-    nationalId: "۰۰۷۱۴۰۹۴۰۸",
-    degree: "کارشناسی",
-    major: "مهندسی‌مکانیک‌حرارت و سیالات",
-    units: "۱۴۰ واحد درسی تخصصی و عمومی",
-    gradDate: "1404/07/02",
-    university: "دانشگاه آزاد اسلامی واحد تهران مرکزی"
+  // 🔹 دو کد معتبر و اطلاعات‌شون
+  const records = {
+    "82610572": {
+      name: "موسی‌افشین",
+      nationalId: "۰۰۷۱۴۰۹۴۰۸",
+      degree: "کارشناسی",
+      major: "مهندسی‌مکانیک‌حرارت و سیالات",
+      units: "۱۴۰ واحد درسی تخصصی و عمومی",
+      gradDate: "1404/07/02",
+      university: "دانشگاه آزاد اسلامی واحد تهران مرکزی"
+    },
+    "98320764": { // ← این کد دومه (می‌تونی هر عدد ۸ رقمی دلخواه بزنی)
+      name: "محمد کریمی",
+      nationalId: "۰۰۴۵۶۷۸۹۲۱",
+      degree: "کارشناسی ارشد",
+      major: "مدیریت بازرگانی",
+      units: "۴۲ واحد درسی تخصصی",
+      gradDate: "1403/11/22",
+      university: "دانشگاه علامه طباطبایی"
+    }
   };
 
   const codeInput = document.getElementById('code');
@@ -210,6 +221,17 @@
     errorBox.style.display = 'block';
     loading.style.display = 'none';
     resultCard.style.display = 'none';
+  }
+
+  function showResult(data){
+    document.getElementById('name').innerText = data.name;
+    document.getElementById('nationalId').innerText = data.nationalId;
+    document.getElementById('degree').innerText = data.degree;
+    document.getElementById('major').innerText = data.major;
+    document.getElementById('units').innerText = data.units;
+    document.getElementById('gradDate').innerText = data.gradDate;
+    document.getElementById('university').innerText = data.university;
+    resultCard.style.display = 'block';
   }
 
   function checkCode(){
@@ -226,17 +248,11 @@
 
     setTimeout(()=>{
       loading.style.display = 'none';
-      if(code === VALID_CODE){
-        document.getElementById('name').innerText = sampleData.name;
-        document.getElementById('nationalId').innerText = sampleData.nationalId;
-        document.getElementById('degree').innerText = sampleData.degree;
-        document.getElementById('major').innerText = sampleData.major;
-        document.getElementById('units').innerText = sampleData.units;
-        document.getElementById('gradDate').innerText = sampleData.gradDate;
-        document.getElementById('university').innerText = sampleData.university;
-        resultCard.style.display = 'block';
+      const data = records[code];
+      if(data){
+        showResult(data);
       } else {
-        showError('❌ کد صحت نامعتبر است یا اطلاعاتی برای این کد در پایگاه داده ثبت نشده است.');
+        showError('❌ کد صحت نامعتبر است یا اطلاعاتی برای این کد ثبت نشده است.');
       }
     }, 2000);
   }
