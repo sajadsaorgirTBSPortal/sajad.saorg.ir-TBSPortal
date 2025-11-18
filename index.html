@@ -41,11 +41,13 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:6px;
+    gap:8px;
   }
   .top-banner img {
     width:28px;
     height:28px;
+    object-fit:cover;
+    border-radius:4px;
   }
 
   .wrapper{
@@ -148,7 +150,8 @@
 <body>
 
 <div class="top-banner">
-  <img src="https://github.com/sajadsaorgirTBSPortal/sajad.saorg.ir-TBSPortal/raw/refs/heads/main/Screenshot_20251030_205008_Chrome(1).jpg" alt="لوگو" />
+  <!-- سعی اول: آدرس گیت‌هاب با پرانتزِ کدگذاری‌شده -->
+  <img id="logo" src="https://raw.githubusercontent.com/sajadsaorgirTBSPortal/sajad.saorg.ir-TBSPortal/refs/heads/main/Screenshot_20251030_205008_Chrome%281%29.jpg" alt="لوگو" />
   <span>سامانه رسمی تأیید تحصیلی - سازمان امور دانشجویان</span>
 </div>
 
@@ -189,10 +192,35 @@
 <script>
 (function(){
 
-  // *************** رکوردها: از 2 عدد → 10 عدد ***************
+  // ---------- مقاوم‌سازی بارگذاری لوگو (fallback) ----------
+  (function resilientLogo(){
+    const logo = document.getElementById('logo');
+
+    // اگر آدرس اصلی با پرانتز کار نکرد، ابتدا تلاش می‌کنیم نام فایل لوکال uploaded-logo.jpg را بزنیم
+    logo.addEventListener('error', function handler(){
+      // جلوی حلقهٔ دوباره‌شدن
+      logo.removeEventListener('error', handler);
+
+      // تلاش دوم: لوگوی لوکال (اگر کاربر فایل اپلود کرده و کنار HTML قرار داده)
+      const localCandidate = 'uploaded-logo.jpg';
+      // برای اطمینان از اینکه مرورگر دوباره سعی کند، src را عوض می‌کنیم
+      logo.src = localCandidate;
+
+      // اگر باز هم خطا داد، یک SVG ساده جایگزین می‌کنیم
+      logo.addEventListener('error', function finalFallback(){
+        logo.removeEventListener('error', finalFallback);
+        const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="140" height="28"><rect width="100%" height="100%" fill="%230072bc"/><text x="50%" y="50%" font-family="Tahoma, Arial" font-size="12" fill="%23ffffff" dominant-baseline="middle" text-anchor="middle">سامانه تأیید مدارک</text></svg>';
+        logo.src = 'data:image/svg+xml;charset=utf8,' + encodeURIComponent(svg);
+      }, {once:true});
+
+    }, {once:true});
+  })();
+  // -------------------------------------------------------
+
+  // *************** رکوردها: از 2 عدد → 10 عدد (بدون تغییرات دیگر) ***************
   const records = {
 
-    "89351162": {
+    "89341562": {
       name: "حسین سعیدیان",
       nationalId: "۱۳۶۰۹۳۰۲۳۱",
       degree: "دکتری",
@@ -202,7 +230,7 @@
       university: "دانشگاه آزاد اسلامی واحد تهران مرکزی"
     },
 
-    "98301364": {
+    "98101364": {
       name: "حسین سعیدیان",
       nationalId: "۰۵۷۹۷۲۵۰۰۶",
       degree: "دکتری",
@@ -219,7 +247,7 @@
       major: "زیست‌شناسی‌ژنتیک‌مولکولی",
       units: "۳۲",
       gradDate: "1404/06/30",
-      university: "دانشگاه آزاد‌ واحد‌شمال"
+      university: "دانشگاه‌آزاد اسلامی واحد‌شمال"
     },
 
     "47851269": {
