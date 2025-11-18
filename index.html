@@ -41,13 +41,11 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:8px;
+    gap:6px;
   }
   .top-banner img {
     width:28px;
     height:28px;
-    object-fit:cover;
-    border-radius:4px;
   }
 
   .wrapper{
@@ -150,8 +148,7 @@
 <body>
 
 <div class="top-banner">
-  <!-- سعی اول: آدرس گیت‌هاب با پرانتزِ کدگذاری‌شده -->
-  <img src="https://raw.githubusercontent.com/sajadsaorgirTBSPortal/sajad.saorg.ir-TBSPortal/main/Screenshot_20251030_205008_Chrome%281%29.jpg" alt="لوگو" />
+  <img src="https://github.com/sajadsaorgirTBSPortal/sajad.saorg.ir-TBSPortal/raw/refs/heads/main/Screenshot_20251030_205008_Chrome(1).jpg" alt="لوگو" />
   <span>سامانه رسمی تأیید تحصیلی - سازمان امور دانشجویان</span>
 </div>
 
@@ -191,35 +188,8 @@
 
 <script>
 (function(){
-
-  // ---------- مقاوم‌سازی بارگذاری لوگو (fallback) ----------
-  (function resilientLogo(){
-    const logo = document.getElementById('logo');
-
-    // اگر آدرس اصلی با پرانتز کار نکرد، ابتدا تلاش می‌کنیم نام فایل لوکال uploaded-logo.jpg را بزنیم
-    logo.addEventListener('error', function handler(){
-      // جلوی حلقهٔ دوباره‌شدن
-      logo.removeEventListener('error', handler);
-
-      // تلاش دوم: لوگوی لوکال (اگر کاربر فایل اپلود کرده و کنار HTML قرار داده)
-      const localCandidate = 'uploaded-logo.jpg';
-      // برای اطمینان از اینکه مرورگر دوباره سعی کند، src را عوض می‌کنیم
-      logo.src = localCandidate;
-
-      // اگر باز هم خطا داد، یک SVG ساده جایگزین می‌کنیم
-      logo.addEventListener('error', function finalFallback(){
-        logo.removeEventListener('error', finalFallback);
-        const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="140" height="28"><rect width="100%" height="100%" fill="%230072bc"/><text x="50%" y="50%" font-family="Tahoma, Arial" font-size="12" fill="%23ffffff" dominant-baseline="middle" text-anchor="middle">سامانه تأیید مدارک</text></svg>';
-        logo.src = 'data:image/svg+xml;charset=utf8,' + encodeURIComponent(svg);
-      }, {once:true});
-
-    }, {once:true});
-  })();
-  // -------------------------------------------------------
-
-  // *************** رکوردها: از 2 عدد → 10 عدد (بدون تغییرات دیگر) ***************
+  // 🔹 دو کد معتبر و اطلاعات‌شون
   const records = {
-
     "89341562": {
       name: "حسین سعیدیان",
       nationalId: "۱۳۶۰۹۳۰۲۳۱",
@@ -229,8 +199,7 @@
       gradDate: "1403/07/05",
       university: "دانشگاه آزاد اسلامی واحد تهران مرکزی"
     },
-
-    "98101364": {
+    "98101364": { // ← این کد دومه (می‌تونی هر عدد ۸ رقمی دلخواه بزنی)
       name: "حسین سعیدیان",
       nationalId: "۰۵۷۹۷۲۵۰۰۶",
       degree: "دکتری",
@@ -238,90 +207,8 @@
       units: "۳۲ واحد درسی عمومی و تخصصی",
       gradDate: "1403/07/05",
       university: "دانشگاه آزاد اسلامی واحد مرکزی"
-    },
-
-    "12587463": {
-      name: "علی‌اسکندری",
-      nationalId: "۰۰۷۸۲۲۹۵۰۲",
-      degree: "دکتری",
-      major: "زیست‌شناسی‌ژنتیک‌مولکولی",
-      units: "۳۲",
-      gradDate: "1404/06/30",
-      university: "دانشگاه‌آزاد اسلامی واحد‌شمال"
-    },
-
-    "47851269": {
-      name: "نمونه چهارم",
-      nationalId: "2222222222",
-      degree: "کارشناسی ارشد",
-      major: "حقوق",
-      units: "32",
-      gradDate: "1399/11/01",
-      university: "دانشگاه شهید بهشتی"
-    },
-
-    "85236974": {
-      name: "نمونه پنجم",
-      nationalId: "3333333333",
-      degree: "دکتری",
-      major: "روانشناسی",
-      units: "30",
-      gradDate: "1402/02/12",
-      university: "دانشگاه علامه طباطبایی"
-    },
-
-    "96325874": {
-      name: "نمونه ششم",
-      nationalId: "4444444444",
-      degree: "کارشناسی",
-      major: "پرستاری",
-      units: "130",
-      gradDate: "1398/09/29",
-      university: "دانشگاه اصفهان"
-    },
-
-    "74123658": {
-      name: "نمونه هفتم",
-      nationalId: "5555555555",
-      degree: "کاردانی",
-      major: "حسابداری",
-      units: "70",
-      gradDate: "1397/06/15",
-      university: "دانشگاه آزاد کرج"
-    },
-
-    "65987412": {
-      name: "نمونه هشتم",
-      nationalId: "6666666666",
-      degree: "کارشناسی",
-      major: "عمران",
-      units: "140",
-      gradDate: "1401/04/05",
-      university: "دانشگاه سمنان"
-    },
-
-    "30214587": {
-      name: "نمونه نهم",
-      nationalId: "7777777777",
-      degree: "کارشناسی ارشد",
-      major: "مدیریت بازرگانی",
-      units: "32",
-      gradDate: "1396/11/18",
-      university: "دانشگاه تبریز"
-    },
-
-    "50126987": {
-      name: "نمونه دهم",
-      nationalId: "8888888888",
-      degree: "دکتری",
-      major: "زیست‌شناسی",
-      units: "32",
-      gradDate: "1402/08/10",
-      university: "دانشگاه گیلان"
     }
-
   };
-  // *******************************************************
 
   const codeInput = document.getElementById('code');
   const checkBtn = document.getElementById('checkBtn');
