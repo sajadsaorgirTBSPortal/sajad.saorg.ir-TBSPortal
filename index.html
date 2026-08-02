@@ -32,7 +32,6 @@
     min-height: 100vh;
   }
 
-  /* ===== هدر ===== */
   header {
     background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
     color: #fff;
@@ -69,7 +68,6 @@
     font-weight: 700;
   }
 
-  /* ===== کانتینر اصلی ===== */
   .wrapper {
     max-width: 860px;
     margin: 28px auto;
@@ -134,17 +132,12 @@
     box-shadow: 0 6px 20px rgba(13, 59, 102, 0.25);
   }
 
-  .row button:active {
-    transform: scale(0.97);
-  }
-
   .help {
     font-size: 13px;
     color: var(--muted);
     margin-top: 10px;
   }
 
-  /* ===== وضعیت‌ها ===== */
   .status-box {
     margin-top: 16px;
     padding: 14px 18px;
@@ -186,7 +179,6 @@
     border-color: #6ee7b7;
   }
 
-  /* ===== کارت نتیجه ===== */
   .result {
     margin-top: 24px;
     border-radius: var(--radius);
@@ -225,7 +217,6 @@
     padding: 20px 22px 24px;
   }
 
-  /* ===== گرید اطلاعات ===== */
   .info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -267,7 +258,6 @@
     border-width: 2px;
   }
 
-  /* ===== عکس ۳×۳ سانت (تقریباً 80px) ===== */
   .photo-container {
     display: flex;
     justify-content: center;
@@ -298,7 +288,6 @@
     color: #9ca3af;
   }
 
-  /* ===== فوتر ===== */
   .bottom-banner {
     position: fixed;
     bottom: 0;
@@ -329,7 +318,6 @@
     margin: 0 4px;
   }
 
-  /* ===== ریسپانسیو ===== */
   @media (max-width: 640px) {
     header {
       font-size: 17px;
@@ -359,20 +347,10 @@
       height: 70px;
     }
   }
-
-  @media (max-width: 400px) {
-    .photo-container img,
-    .photo-container .no-photo {
-      width: 60px;
-      height: 60px;
-      font-size: 28px;
-    }
-  }
 </style>
 </head>
 <body>
 
-<!-- ===== هدر ===== -->
 <div class="top-banner">
   <span class="org-name">سازمان امور دانشجویان</span>
   <span style="opacity:0.4;">|</span>
@@ -384,7 +362,6 @@
   <small>وزارت علوم، تحقیقات و فناوری</small>
 </header>
 
-<!-- ===== بخش اصلی ===== -->
 <div class="wrapper">
   <label for="code">کد صحت مدرک تحصیلی</label>
   <div class="row">
@@ -397,52 +374,41 @@
   <div id="errorBox" class="status-box error"></div>
   <div id="successBox" class="status-box success">اطلاعات با موفقیت یافت شد</div>
 
-  <!-- ===== کارت نتیجه ===== -->
   <div id="resultCard" class="result">
     <div class="result-header">
       نتیجه استعلام کد صحت
       <span class="sub">اطلاعات بروز شده در تاریخ ۱۴۰۳/۰۸/۰۱</span>
     </div>
     <div class="result-body">
-
-      <!-- ===== ردیف عکس ===== -->
       <div class="photo-container">
         <img id="userPhoto" src="" alt="عکس" style="display:none;" />
         <div id="noPhoto" class="no-photo">👤</div>
       </div>
-
-      <!-- ===== اطلاعات ===== -->
       <div class="info-grid">
         <div class="info-item highlight full-width">
           <span class="label">نام و نام خانوادگی</span>
           <span class="value" id="name">—</span>
         </div>
-
         <div class="info-item">
           <span class="label">کد ملی</span>
           <span class="value" id="nationalId">—</span>
         </div>
-
         <div class="info-item">
           <span class="label">مقطع تحصیلی</span>
           <span class="value" id="degree">—</span>
         </div>
-
         <div class="info-item">
           <span class="label">رشته تحصیلی</span>
           <span class="value" id="major">—</span>
         </div>
-
         <div class="info-item">
           <span class="label">تعداد واحدها</span>
           <span class="value" id="units">—</span>
         </div>
-
         <div class="info-item">
           <span class="label">تاریخ فارغ‌التحصیلی</span>
           <span class="value" id="gradDate">—</span>
         </div>
-
         <div class="info-item full-width">
           <span class="label">دانشگاه / مؤسسه</span>
           <span class="value" id="university">—</span>
@@ -452,7 +418,6 @@
   </div>
 </div>
 
-<!-- ===== فوتر ===== -->
 <div class="bottom-banner">
   <a href="https://portal.saorg.ir/registration-the-applicant/" target="_blank">پایش سلامت دانشجویان</a>
   <span class="sep">|</span>
@@ -465,9 +430,9 @@
 (function() {
 
   // ============================================================
-  //  📚 دیتابیس با قابلیت عکس (لینک)
+  //  📚 دیتابیس پیش‌فرض (اگه localStorage خالی بود)
   // ============================================================
-  const records = {
+  const defaultRecords = {
     "89341562": {
       name: "علی‌اسکندری",
       nationalId: "۰۰۷۸۲۲۹۵۰۲",
@@ -476,7 +441,7 @@
       units: "۳۲ واحد درسی تخصصی و عمومی",
       gradDate: "۱۴۰۴/۰۶/۳۰",
       university: "دانشگاه آزاد اسلامی واحد تهران شمال",
-      photo: ""  // ← لینک عکس رو اینجا بذار
+      photo: ""
     },
     "98101364": {
       name: "حسین سعیدیان",
@@ -489,6 +454,26 @@
       photo: "https://github.com/sajadsaorgirTBSPortal/sajad.saorg.ir-TBSPortal/raw/refs/heads/main/Screenshot_20251030_205008_Chrome(1).jpg"
     }
   };
+
+  // ============================================================
+  //  بارگذاری از localStorage یا استفاده از پیش‌فرض
+  // ============================================================
+  function loadRecords() {
+    try {
+      const data = localStorage.getItem('educationRecords');
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (Object.keys(parsed).length > 0) {
+          return parsed;
+        }
+      }
+    } catch(e) {}
+    // اگه localStorage خالی بود، پیش‌فرض رو ذخیره کن و برگردون
+    localStorage.setItem('educationRecords', JSON.stringify(defaultRecords));
+    return defaultRecords;
+  }
+
+  const records = loadRecords();
 
   // ============================================================
   //  عناصر DOM
@@ -518,7 +503,6 @@
   }
 
   function showResult(data) {
-    // ===== اطلاعات =====
     document.getElementById('name').innerText = data.name || '—';
     document.getElementById('nationalId').innerText = data.nationalId || '—';
     document.getElementById('degree').innerText = data.degree || '—';
@@ -527,9 +511,6 @@
     document.getElementById('gradDate').innerText = data.gradDate || '—';
     document.getElementById('university').innerText = data.university || '—';
 
-    // ==========================================
-    //  📸 نمایش عکس (۳×۳ سانت = 80px)
-    // ==========================================
     const photoImg = document.getElementById('userPhoto');
     const noPhoto = document.getElementById('noPhoto');
 
@@ -574,9 +555,6 @@
     }, 1500 + Math.random() * 1000);
   }
 
-  // ============================================================
-  //  رویدادها
-  // ============================================================
   checkBtn.addEventListener('click', checkCode);
 
   codeInput.addEventListener('keydown', function(e) {
@@ -590,15 +568,11 @@
     this.value = this.value.replace(/[^0-9]/g, '').slice(0, 8);
   });
 
-  // ============================================================
-  //  فوکوس خودکار
-  // ============================================================
   window.addEventListener('load', function() {
     codeInput.focus();
   });
 
 })();
 </script>
-
 </body>
 </html>
